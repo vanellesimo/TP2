@@ -8,7 +8,7 @@ Le but de ce TP est de créer trois conteneurs :
 - Un serveur Web : Apache
 - Un serveur backend avec une API : Java
 - Une base de données : PostgreSQL
-- (optionel) Un client pour la base de données : adminer
+- Un client pour la base de données : adminer
 
 
 Les notions suivantes seront abordées : 
@@ -21,7 +21,7 @@ Les notions suivantes seront abordées :
 - L'utilisation de docker-compose
 - La configuration très basique d'un reverse proxy
 
-## Dockerfile
+## Base de donnée 
 
 ### Build de l'image
 
@@ -65,3 +65,33 @@ Ajouter adminer (facultatif) :
 ```
 docker run --network=app-network --link database:db -p 8081:8080 adminer
 ```
+## Application Java
+
+## Build de l'image
+
+On build notre image :
+
+```docker
+docker build -t backend .
+```
+On lance le container:
+```
+docker run --network=app-network -p 8080:8080 --name backend_app backend
+```
+
+## Reverse-Proxy
+
+On fait exactement la même chose que pour les étapes d'avant on build et on run l'image.
+
+# Docker-Compose pour les rassembler tous !
+
+Docker-Compose est un super outil pour configurer/définir/désigner des applications docker avec plusieurs conteneurs.
+Celui-ci est au format YAML.
+
+* Voici la documentation : https://docs.docker.com/compose/
+
+Pour créer et lancer les conteneurs : ```docker-compose up``` et ajouter ```-d``` pour lancer en arrière plan
+
+Pour arrêter et supprimer l'ensemble des éléments (volumes, netorks, containers, images) : ```docker-compose down```
+
+
